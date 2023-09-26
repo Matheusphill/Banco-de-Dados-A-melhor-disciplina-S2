@@ -146,3 +146,18 @@ DELIMITER ;
 DECLARE @nomeAutorMaisAntigo VARCHAR(255);
 CALL sp_AutorMaisAntigo(@nomeAutorMaisAntigo);
 SELECT @nomeAutorMaisAntigo AS AutorMaisAntigo;
+
+
+--9
+DELIMITER //--DELIMITER Define o delimitador temporariamente como // para permitir a definição da stored procedure.
+
+CREATE PROCEDURE sp_TitulosPorCategoria(IN categoriaNome VARCHAR(100)) --CREATE PROCEDURE sp_TitulosPorCategoria(IN categoriaNome VARCHAR(100)): Inicia a criação da stored procedure chamada sp_TitulosPorCategoria. Ela aceita um parâmetro de entrada chamado categoriaNome, que é o nome da categoria da qual desejamos listar os títulos dos livros.
+BEGIN --BEGIN: Marca o início do bloco de código da stored procedure.
+    SELECT Livro.Titulo --SELECT Livro.Titulo: Esta é a parte principal da stored procedure. Ela seleciona os títulos dos livros da tabela Livro.
+    FROM Livro --FROM Livro: Especifica a tabela da qual estamos selecionando os dados, que é a tabela Livro.
+    INNER JOIN Categoria ON Livro.Categoria_ID = Categoria.Categoria_ID --INNER JOIN Categoria ON Livro.Categoria_ID = Categoria.Categoria_ID: junta a tabela Livro e a tabela Categoria com base na coluna Categoria_ID para relacionar os livros com suas categorias.
+
+    WHERE Categoria.Nome = categoriaNome; --WHERE Categoria.Nome = categoriaNome;: Filtra os resultados para incluir apenas os livros da categoria especificada pelo parâmetro categoriaNome.
+END// --END: Marca o fim do bloco de código da stored procedure.
+
+DELIMITER ;
