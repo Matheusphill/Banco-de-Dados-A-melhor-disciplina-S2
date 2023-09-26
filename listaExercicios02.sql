@@ -161,3 +161,15 @@ BEGIN --BEGIN: Marca o início do bloco de código da stored procedure.
 END// --END: Marca o fim do bloco de código da stored procedure.
 
 DELIMITER ;
+
+--10
+DELIMITER //
+CREATE PROCEDURE sp_LivrosESeusAutores()
+BEGIN
+    SELECT Livro.Titulo, Autor.Nome AS NomeAutor, Autor.Sobrenome AS SobrenomeAutor
+    FROM Livro
+    INNER JOIN Autor_Livro ON Livro.Livro_ID = Autor_Livro.Livro_ID
+    INNER JOIN Autor ON Autor_Livro.Autor_ID = Autor.Autor_ID;
+END//
+
+DELIMITER ;
