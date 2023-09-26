@@ -59,3 +59,18 @@ BEGIN
 END//
 
 DELIMITER ;
+
+--5
+DELIMITER //
+CREATE PROCEDURE sp_LivrosAteAno(IN anoPublicacao INT)
+BEGIN
+    SELECT Livro.Titulo, Autor.Nome AS NomeAutor, Autor.Sobrenome AS SobrenomeAutor
+    FROM Livro
+    INNER JOIN Autor_Livro ON Livro.Livro_ID = Autor_Livro.Livro_ID
+    INNER JOIN Autor ON Autor_Livro.Autor_ID = Autor.Autor_ID
+    WHERE Livro.Ano_Publicacao <= anoPublicacao;
+END//
+
+DELIMITER ;
+CALL sp_LivrosAteAno(2010);
+CALL sp_LivrosAteAno(2005);
